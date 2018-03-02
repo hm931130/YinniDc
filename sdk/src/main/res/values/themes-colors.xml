@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!--深绿-->
+    <!-- green -->
+    <color name="md_green_500">#00C280</color>
+    <color name="md_green_700">#00C280</color>
+
+    <color name="md_red_700">#FF0000</color>
+
+</resources>
+
+

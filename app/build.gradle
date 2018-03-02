@@ -1,0 +1,82 @@
+apply plugin: 'com.android.application'
+
+def buildTime() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMdd')
+    return formattedDate
+}
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        applicationId "com.dc.indonesia.juxinli"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk { abiFilters "armeabi", "x86_64", "x86" }
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            //Zipalign优化
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            //混淆
+            minifyEnabled true
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            //自定义打包生成的文件名
+            applicationVariants.all {
+                variant ->
+                    variant.outputs.all {
+                        output ->
+                            def outputFile = output.outputFile
+                            if (outputFile != null && outputFile.name.endsWith(".apk")) {
+                                def appName = "印尼贷超"
+                                def buildName
+                                def buildType
+                                def resultName
+                                variant.productFlavors.each { product ->
+                                    buildName = product.name
+                                }
+                                if (variant.buildType.name.equals("release")) {
+                                    buildType = "release"
+                                }
+                                if (variant.buildType.name.equals("debug")) {
+                                    buildType = "debug"
+                                }
+                                resultName = appName + '_' + defaultConfig.versionName + '_' + buildName + '_' + buildTime() + '_' + buildType + '.apk'
+//                        outputFileName = new File(outputFile.parent, resultName)
+                                outputFileName = new File(resultName)
+                            }
+                    }
+            }
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
+    releaseImplementation project(':sdk')
+    debugImplementation project(':sdk')
+}
