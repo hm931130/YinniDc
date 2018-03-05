@@ -79,4 +79,7 @@ dependencies {
 
     //permissions
     compile "com.tbruyelle.rxpermissions2:rxpermissions:$rootProject.rxPerssionsVersion"
+
+    implementation "com.android.support:support-v4:$rootProject.supportV4Version"
+    implementation "cn.bingoogolapple:bga-banner:$rootProject.bgaVersion"
 }
