@@ -3,6 +3,7 @@ package com.dc.indonesia.juxinli.ui.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import com.dc.indonesia.juxinli.R;
 import com.dc.indonesia.sdk.base.activity.BaseCompatActivity;
@@ -26,6 +27,12 @@ public class FlashActivity extends BaseCompatActivity {
     private static final String TAG = "RxPermission";
     private boolean mIsCancle;
     private int mTime = 3;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected void initView(Bundle savedInstanceState) {

@@ -3,6 +3,7 @@ package com.dc.indonesia.sdk.base.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -50,7 +51,7 @@ public abstract class BaseCompatActivity extends SupportActivity {
     private void init(Bundle savedInstanceState) {
         setContentView(getLayoutId());
         ButterKnife.bind(this);
-//        StatusBarUtils.setTransparent(this);
+        StatusBarUtils.setTransparent(this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         initData();
         initView(savedInstanceState);

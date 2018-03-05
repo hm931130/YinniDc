@@ -24,9 +24,8 @@
             android:layout_gravity="center"
             android:text="干货"
             android:textColor="@color/color_white"
-            android:textSize="@dimen/sp_18" />
+            android:textSize="@dimen/sp_22" />
     </android.support.v7.widget.Toolbar>
-
 
 
 </LinearLayout>

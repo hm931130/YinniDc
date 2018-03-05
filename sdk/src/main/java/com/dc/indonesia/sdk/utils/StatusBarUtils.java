@@ -54,10 +54,27 @@ public class StatusBarUtils {
                 win.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                 win.setStatusBarColor(color);//设置状态栏背景色
             }
-
-
         }
-//        addStatusViewWithColor(activity, Color.parseColor("#00C280"));
+
+
+    }
+
+    public static void setPaddingTop(Activity activity, int color) {
+        //设置 paddingTop
+        ViewGroup rootView = (ViewGroup) activity.getWindow().getDecorView().findViewById(android.R.id.content);
+        rootView.setPadding(0, getStatusBarHeight(activity), 0, 0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            //5.0 以上直接设置状态栏颜色
+            activity.getWindow().setStatusBarColor(color);
+        } else {
+            //根布局添加占位状态栏
+            ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
+            View statusBarView = new View(activity);
+            ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    getStatusBarHeight(activity));
+            statusBarView.setBackgroundColor(color);
+            decorView.addView(statusBarView, lp);
+        }
     }
 
     private static void addStatusViewWithColor(Activity activity, int color) {
